@@ -182,12 +182,16 @@ local onPlayerConnected = function (player)
     -- Player events
     local spawnlistenr = player:onnotify("spawned_player", function() onPlayerSpawned(player) end);
     local saylistener = player:onnotify("say", function(msg) onPlayerSay(player, msg) end);
-    local say_teamlistener player:onnotify("say_team", function(msg) onPlayerSay(player, msg) end);
+    local say_teamlistener = player:onnotify("say_team", function(msg) onPlayerSay(player, msg) end);
+    local damagedlistener = player:onnotify("damaged", function ()
+        
+    end);
 
     player:onnotifyonce("disconnect", function ()
         spawnlistenr:clear();
         saylistener:clear();
         say_teamlistener:clear();
+        damagedlistener:clear();
     end)
 
     for _, hook in pairs(PlayerConnectedHooks) do

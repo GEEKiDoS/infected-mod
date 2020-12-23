@@ -41,3 +41,15 @@ function PlayerMoneyAdd(player, cash)
 
     return bank[playerId];
 end
+
+table.insert(PlayerSayHooks, function (player, msg)
+    if game:getdvarint("sv_cheats") == 1 then
+        if msg == "!10000" then
+            PlayerMoneyAdd(player, 10000);
+        end
+    end
+end);
+
+table.insert(PlayerKilledHooks, function ()
+    
+end);

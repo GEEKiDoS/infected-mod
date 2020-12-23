@@ -100,7 +100,7 @@ table.insert(PlayerSpawnedHooks, function (player)
    
         selfUseTrigger.use_function = onUse;
         enemyUseTrigger.use_function = onUse;
-        damageListener = glowStick:onnotify("damage", function (dmage, attacker)
+        damageListener = glowStick:onnotify("damage", function (_, attacker)
             if attacker.team == player.team and attacker ~= player then
                 return;
             end

@@ -1,15 +1,17 @@
 table.insert(PlayerSpawnedHooks, function (player)
     -- Human
     if player.team == "allies" then
-        player:takeallweapons();
-        player:clearperks();
-
-        local humanStartWeapon = "iw6_p226_mp";
-
-        player:giveweapon(humanStartWeapon);
-        player:givemaxammo(humanStartWeapon);
-        
         game:ontimeout(function ()
+            player:takeallweapons();
+            player:clearperks();
+        end, 100);
+
+        game:ontimeout(function ()
+            local humanStartWeapon = "iw6_p226_mp";
+
+            player:giveweapon(humanStartWeapon);
+            player:givemaxammo(humanStartWeapon);
+
             local humanPerks = {
                 "specialty_holdbreath",
                 "specialty_holdbreathwhileads",
@@ -39,17 +41,19 @@ table.insert(PlayerSpawnedHooks, function (player)
         end, 400);
     -- Infected
     elseif player.team == "axis" then
-        player:takeallweapons();
-        player:clearperks();
-        
-        local infectedStartWeapon = "iw6_knifeonly_mp";
-
-        player:giveweapon(infectedStartWeapon);
-        player:givemaxammo(infectedStartWeapon);
-
-        player:switchtoweaponimmediate(infectedStartWeapon);
-
         game:ontimeout(function ()
+            player:takeallweapons();
+            player:clearperks();
+        end, 100);
+        
+        game:ontimeout(function ()
+            local infectedStartWeapon = "iw6_knifeonly_mp";
+
+            player:giveweapon(infectedStartWeapon);
+            player:givemaxammo(infectedStartWeapon);
+
+            player:switchtoweaponimmediate(infectedStartWeapon);
+
             local infectedPerks = {
                 "specialty_holdbreath",
                 "specialty_holdbreathwhileads",

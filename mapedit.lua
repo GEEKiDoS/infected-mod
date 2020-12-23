@@ -118,17 +118,15 @@ function CreateTP(tpstart, tpend)
     local flag_out = game:spawn("script_model", tpend);
     flag_out:setmodel(flags[3]);
 
-    game:oninterval(function ()
-        local players = AllPlayers;
+    local trigger = CreateTrigger(tpstart, 100, 100);
 
-        for i, player in ipairs(players) do
-            local origin = player.origin;
+    trigger:onnotify("trigger", function (player)
+        print("TRIGGERED");
 
-            if game:distancesquared(origin, tpstart) < 500 then
-                player:setorigin(tpend);
-            end
-        end        
-    end, 100);
+        if game:isplayer(player) then
+            player:setorigin(tpstart);
+        end
+    end);
 end
 
 local precache = function ()

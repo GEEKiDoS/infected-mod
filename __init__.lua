@@ -9,6 +9,8 @@ require("mapedit");
 PlayerConnectedHooks = {};
 PlayerSpawnedHooks = {};
 PlayerSayHooks = {};
+PlayerDamagedHooks = {};
+PlayerKilledHooks = {};
 
 require("player.hud");
 require("player.money");
