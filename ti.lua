@@ -130,8 +130,10 @@ table.insert(PlayerSpawnedHooks, function (player)
     if playerSpawnPoints[playerId] ~= nil then
         local p = playerSpawnPoints[playerId];
 
-        player:setorigin(p.position);
-
+        if player.team == p.team then
+            player:setorigin(p.position);
+        end
+        
         p.removeSelf();
     end
 end);
