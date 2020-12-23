@@ -101,11 +101,18 @@ table.insert(PlayerSpawnedHooks, function (player)
         selfUseTrigger.use_function = onUse;
         enemyUseTrigger.use_function = onUse;
         damageListener = glowStick:onnotify("damage", function (dmage, attacker)
-            if attacker.team == player.team then
+            if attacker.team == player.team and attacker ~= player then
                 return;
             end
+            
+            if attacker ~= player then
+                player:iclientprintlnbold("Your ^2tactical insertion ^7has been ^1denied!");
+            end
 
-            player:iclientprintlnbold("Your ^2tactical insertion ^7has been ^1denied!");
+            -- show hitmarker
+            attacker:setclientomnvar( "damage_feedback", "standard" );
+            attacker:playlocalsound( "MP_hit_alert" );
+            
             removeTI();
         end);
 
@@ -133,7 +140,7 @@ table.insert(PlayerSpawnedHooks, function (player)
         if player.team == p.team then
             player:setorigin(p.position);
         end
-        
+
         p.removeSelf();
     end
 end);
