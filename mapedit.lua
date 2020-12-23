@@ -8,15 +8,19 @@ local airdropCollision = getCarepackageCollision();
 local boxModels = {"carepackage_enemy_iw6","carepackage_friendly_iw6","mp_juggernaut_carepackage","mp_juggernaut_carepackage_red","tag_origin"}
 local flags = {"prop_flag_iw6_federation", "prop_flag_iw6_ghost", "prop_flag_neutral"};
 
-function SpawnBox(origin, angles, type)
+function SpawnBox(origin, angles, type, issolid)
     angles = angles or vector:new(0, 0, 0);
     type = type or 1;
+    issolid = issolid or true;
 
     local box = game:spawn("script_model", origin);
     box:setmodel(boxModels[type]);
-    box:solid();
-    box:clonebrushmodeltoscriptmodel(airdropCollision);
     box.angles = angles;
+
+    if issolid then
+        box:solid();
+        box:clonebrushmodeltoscriptmodel(airdropCollision);
+    end
 
     return box;
 end
@@ -132,7 +136,8 @@ local precache = function ()
     game:precachemodel(boxModels[2]);
     game:precachemodel(boxModels[3]);
     game:precachemodel(boxModels[4]);
-
+    game:precachemodel(boxModels[5]);
+    
     game:precachemodel(flags[1]);
     game:precachemodel(flags[2]);
     game:precachemodel(flags[3]);

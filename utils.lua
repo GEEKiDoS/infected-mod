@@ -13,16 +13,27 @@ level:onnotify("connected", function (player)
     end)
 end);
 
-local curObjectID = 0;
+local curObjectID = 32;
 
-function CreateWaypoint(origin, icon)
-    game:objectivestate(31 - curObjectID, "active");
-    game:objectiveposition(31 - curObjectID, origin)
-    game:objectiveicon(31 - curObjectID, icon)
+function CreateWaypoint(origin, icon, team)
+    curObjectID = curObjectID - 1;
 
-    curObjectID = curObjectID + 1;
+    game:objectivestate(curObjectID, "active");
+    game:objectiveposition(curObjectID, origin)
+    game:objectiveicon(curObjectID, icon)
 
-    local hud = game:newhudelem();
+    if team ~= nil then
+        game:objectiveteam(curObjectID, team);
+    end
+
+    local hud = nil;
+    
+    if team ~= nil then
+        hud = game:newteamhudelem(team);
+    else
+        hud = game:newhudelem();
+    end
+
     hud.x = origin.x;
     hud.y = origin.y;
     hud.z = origin.z;
@@ -32,14 +43,22 @@ function CreateWaypoint(origin, icon)
     hud:setmaterial(icon, 15, 15);
     hud:setwaypoint(true);
 
-    return curObjectID;
+    return { curObjectID, hud };
 end
 
 function CreateTrigger(origin, radius, height)
-    local trigger = game:spawn("trigger_radius", origin, 1, radius, height);
+    local trigger = game:spawn("trigger_radius", origin, 0, radius, height);
     return trigger;
 end
 
 function ParseVector(obj)
     return vector:new(obj.x, obj.y, obj.z);
+end
+
+function GetOtherTeam(team)
+    if team == "allies" then 
+        return "axis"; 
+    end
+
+    return "allies";
 end

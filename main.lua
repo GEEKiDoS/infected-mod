@@ -195,6 +195,20 @@ local onPlayerConnected = function (player)
     end
 end
 
+-- might works idk
+local removeDeathBarriar = function ()
+    local trigger_hurt = nil;
+
+    repeat
+        trigger_hurt = game:getent("trigger_hurt", "classname");
+        if trigger_hurt ~= nil then
+            trigger_hurt:delete();
+        else
+            break;
+        end
+    until trigger_hurt == nil
+end
+
 game:setdvarifuninitialized("scr_mapedit_editmode", "0");
 game:setdvar("jump_slowdownEnable", 0);
 
@@ -212,6 +226,8 @@ else
     print("Edit mode disabled");
     print("Set scr_mapedit_editmode to 1 and restart game to enable editmode.")
 end
+
+-- removeDeathBarriar();
 
 level:onnotify("connected", onPlayerConnected);
 loadMap();

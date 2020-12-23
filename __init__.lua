@@ -14,7 +14,7 @@ require("player.hud");
 require("player.money");
 require("player.equip");
 
-require("useables.base");
+require("usables.base");
 
 require("ti");
 

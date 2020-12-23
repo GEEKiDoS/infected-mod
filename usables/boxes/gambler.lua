@@ -7,10 +7,10 @@ local rollGamblerResult = function (player)
 end
 
 function Gambler:new(origin, angles)
-    local this = BaseUsable:new(origin, angles, 3, 48);
+    local this = BoxUsable:new(origin, angles, 3);
     this.user = nil;
     this.cost = 500;
-    this.team = "allies";
+    this.target = "allies";
     this.reset_hint_text = function ()
         this.hint_text = "Press ^3[{+activate}] ^7to use gambler [Cost: ^2$^3" .. this.cost .. "^7].";
         this.update_hint_text();
@@ -51,7 +51,7 @@ function Gambler:new(origin, angles)
     this.reset_hint_text();
 
     local tmp_origin = vector:new(origin.x, origin.y, origin.z + 40);
-    CreateWaypoint(tmp_origin, "icon_perks_gambler");
+    this.waypoint = CreateWaypoint(tmp_origin, "icon_perks_gambler", "allies");
 
     tmp_origin.z = tmp_origin.z - 23;
     this.laptop = game:spawn("script_model", tmp_origin);
